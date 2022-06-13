@@ -2,6 +2,10 @@ body {
   background-color: darkgray;
 }
 
+h1 {
+  text-align: center;
+}
+
 .carousel__container {
   margin: 0 auto;
   width: 35%;
