@@ -24,7 +24,31 @@
         <img class="image" src="./assets/squares.jpg" alt="squares" />
       </div>
       <button class="button__slider button--right">
-        <img src="./assets/right-arrow.svg" alt="left" />
+        <img src="./assets/right-arrow.svg" alt="right" />
+      </button>
+      <div class="carousel__navigation">
+        <button class="navigation__indicator active"></button>
+        <button class="navigation__indicator"></button>
+        <button class="navigation__indicator"></button>
+        <button class="navigation__indicator"></button>
+      </div>
+    </div>
+    <div class="carousel__container" id="carousel2">
+      <button class="button__slider button--left isHidden">
+        <img src="./assets/left-arrow.svg" alt="left" />
+      </button>
+      <div class="carousel">
+        <img
+          class="image current"
+          src="./assets/face_paint_1.jpg"
+          alt="face1"
+        />
+        <img class="image" src="./assets/face_paint_2.jpg" alt="face2" />
+        <img class="image" src="./assets/crow.jpg" alt="crow" />
+        <img class="image" src="./assets/squares.jpg" alt="squares" />
+      </div>
+      <button class="button__slider button--right">
+        <img src="./assets/right-arrow.svg" alt="right" />
       </button>
       <div class="carousel__navigation">
         <button class="navigation__indicator active"></button>
@@ -34,6 +58,7 @@
       </div>
     </div>
   </body>
-  <script src="./js/constants.js"></script>
+  <script src="./js/carousel.js"></script>
+  <script src="./js/utils.js"></script>
   <script src="./js/script.js"></script>
 </html>

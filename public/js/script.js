@@ -1,109 +1,78 @@
-// arranging images to left of one another
-imgArray.forEach((image, i) => {
-  image.style.left = `${imgWidth * i}px`;
-});
+carouselArr.forEach((carousel) => {
+  //next button event
 
-// moves the slide as per input
-function moveSlide(currentSlide, targetSlide) {
-  const moveDistance = targetSlide.style.left;
+  carousel.next.addEventListener("click", (event) => {
+    const currentSlide = document.querySelector(
+      `#${carousel.id}>.carousel>.current`
+    );
+    const nextSlide = currentSlide.nextElementSibling;
 
-  imgArray.forEach((image) => {
-    image.style.transform = `translateX(-${moveDistance})`;
+    const currentIndicator = document.querySelector(
+      `#${carousel.id}>.carousel__navigation>.active`
+    );
+    const nextIndicator = currentIndicator.nextElementSibling;
+
+    const targetIndex = carousel.navArray.findIndex(
+      (nav) => nav === nextIndicator
+    );
+
+    moveSlide(currentSlide, nextSlide, carousel.imgArray);
+    moveIndicator(currentIndicator, nextIndicator);
+    toggleArrows(targetIndex, carousel.imgArray, carousel.prev, carousel.next);
   });
-  currentSlide.classList.remove("current");
-  targetSlide.classList.add("current");
-}
 
-//moves the indicator dots
-function moveIndicator(currentIndicator, targetIndicator) {
-  currentIndicator.classList.remove("active");
-  targetIndicator.classList.add("active");
-}
+  //prev button event
 
-//toggle the carousel arrows
-function toggleArrows(targetIndex) {
-  if (targetIndex === 0) {
-    prev.classList.add("isHidden");
-    next.classList.remove("isHidden");
-  } else if (targetIndex === imgArray.length - 1) {
-    prev.classList.remove("isHidden");
-    next.classList.add("isHidden");
-  } else {
-    prev.classList.remove("isHidden");
-    next.classList.remove("isHidden");
-  }
-}
+  carousel.prev.addEventListener("click", (event) => {
+    const currentSlide = document.querySelector(
+      `#${carousel.id}>.carousel>.current`
+    );
+    const prevSlide = currentSlide.previousElementSibling;
 
-//next button event
-next.addEventListener("click", (event) => {
-  const currentSlide = document.querySelector(".current");
-  const nextSlide = currentSlide.nextElementSibling;
+    const currentIndicator = document.querySelector(
+      `#${carousel.id}>.carousel__navigation>.active`
+    );
+    const prevIndicator = currentIndicator.previousElementSibling;
 
-  const currentIndicator = document.querySelector(".active");
-  const nextIndicator = currentIndicator.nextElementSibling;
+    const targetIndex = carousel.navArray.findIndex(
+      (nav) => nav === prevIndicator
+    );
 
-  const targetIndex = navArray.findIndex((nav) => nav === nextIndicator);
+    moveSlide(currentSlide, prevSlide, carousel.imgArray);
+    moveIndicator(currentIndicator, prevIndicator);
+    toggleArrows(targetIndex, carousel.imgArray, carousel.prev, carousel.next);
+  });
 
-  moveSlide(currentSlide, nextSlide);
-  moveIndicator(currentIndicator, nextIndicator);
-  toggleArrows(targetIndex);
+  //nav event
+  carousel.navigator.addEventListener("click", (event) => {
+    const targetIndicator = event.target.closest(
+      `#${carousel.id}>.carousel__navigation>button`
+    );
+    if (!targetIndicator) return;
+
+    const currentSlide = document.querySelector(
+      `#${carousel.id}>.carousel>.current`
+    );
+    const currentIndicator = document.querySelector(
+      `#${carousel.id}>.carousel__navigation>.active`
+    );
+
+    const targetIndex = carousel.navArray.findIndex(
+      (nav) => nav === targetIndicator
+    );
+    const targetImg = carousel.imgArray[targetIndex];
+
+    moveSlide(currentSlide, targetImg, carousel.imgArray);
+    moveIndicator(currentIndicator, targetIndicator);
+    toggleArrows(targetIndex, carousel.imgArray, carousel.prev, carousel.next);
+  });
+
+  automatic_slider_loop(
+    carousel.navArray,
+    carousel.imgArray,
+    carousel.id,
+    carousel.prev,
+    carousel.next,
+    carousel.effect
+  );
 });
-
-//prev button event
-prev.addEventListener("click", (event) => {
-  const currentSlide = document.querySelector(".current");
-  const prevSlide = currentSlide.previousElementSibling;
-
-  const currentIndicator = document.querySelector(".active");
-  const prevIndicator = currentIndicator.previousElementSibling;
-
-  const targetIndex = navArray.findIndex((nav) => nav === prevIndicator);
-
-  moveSlide(currentSlide, prevSlide);
-  moveIndicator(currentIndicator, prevIndicator);
-  toggleArrows(targetIndex);
-});
-
-//nav event
-navigator.addEventListener("click", (event) => {
-  const targetIndicator = event.target.closest("button");
-  if (!targetIndicator) return;
-
-  const currentSlide = document.querySelector(".current");
-  const currentIndicator = document.querySelector(".active");
-
-  const targetIndex = navArray.findIndex((nav) => nav === targetIndicator);
-  const targetImg = imgArray[targetIndex];
-
-  moveSlide(currentSlide, targetImg);
-  moveIndicator(currentIndicator, targetIndicator);
-  toggleArrows(targetIndex);
-});
-
-const automatic_slider_loop = () => {
-  const currentSlide = document.querySelector(".current");
-  const currentIndicator = document.querySelector(".active");
-
-  let currentIndex = navArray.findIndex((nav) => nav === currentIndicator);
-
-  // const targetImg = imgArray[targetIndex];
-
-  // toggleArrows(targetIndex);
-  return setInterval(() => {
-    let currentSlide = document.querySelector(".current");
-    let currentIndicator = document.querySelector(".active");
-
-    let currentIndex = navArray.findIndex((nav) => nav === currentIndicator);
-    let targetIndex = currentIndex + 1;
-    if (targetIndex === imgArray.length) {
-      targetIndex = 0;
-    }
-
-    moveSlide(currentSlide, imgArray[targetIndex]);
-    moveIndicator(currentIndicator, navArray[targetIndex]);
-    toggleArrows(targetIndex);
-  }, 5000);
-  console.log(currentIndex);
-};
-
-automatic_slider_loop();

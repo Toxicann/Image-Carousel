@@ -7,13 +7,10 @@ h1 {
 }
 
 .carousel__container {
-  margin: 0 auto;
+  margin: 0 auto 40px auto;
   width: 35%;
   height: 20.5rem;
   position: relative;
-  /* display: flex;
-  flex-direction: column; */
-  /* background-color: blanchedalmond; */
 }
 
 .carousel {
@@ -21,8 +18,6 @@ h1 {
   position: relative;
   height: 100%;
   overflow: hidden;
-
-  /* background-color: greenyellow; */
 }
 
 .image {
@@ -61,7 +56,6 @@ h1 {
 }
 
 .carousel__navigation {
-  /* background-color: aquamarine; */
   height: 20px;
   margin: 0 auto;
   position: relative;
